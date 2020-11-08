@@ -1,0 +1,30 @@
+.Header {
+	text-align: center;
+}
+
+.Title {
+	margin-bottom: 8px;
+}
+
+.Subtitle {
+	font-style: italic;
+}
+
+.HeadingInfo {
+	font-weight: bold;
+	padding-inline-start: 0;
+}
+
+.HeadingInfo li {
+	list-style: none;
+	display: inline;
+}
+
+.HeadingInfo li:after {
+	content: "\2022";
+	padding: 0 12px;
+}
+
+.HeadingInfo li:last-child:after {
+	content: none;
+}

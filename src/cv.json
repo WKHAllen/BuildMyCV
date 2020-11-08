@@ -1,0 +1,47 @@
+{
+	"cv": {
+		"header": {
+			"title": "Name",
+			"subtitle": "",
+			"headingInfo": [
+				"Address",
+				"Phone Number",
+				"Email",
+				"Website"
+			]
+		},
+		"body": [
+			{
+				"name": "Text",
+				"type": "string",
+				"content": "Write some text"
+			},
+			{
+				"name": "List",
+				"type": "list",
+				"content": [
+					"Write a list of items",
+					"The list will contain bullets in front of each item"
+				]
+			},
+			{
+				"name": "Unbulleted List",
+				"type": "unbulletedlist",
+				"content": [
+					"Write a list of items without bullets",
+					"Like this",
+					"Easy"
+				]
+			},
+			{
+				"name": "Short List",
+				"subtext": "Subtext",
+				"type": "shortlist",
+				"content": [
+					"Shorter list", "Each item is separated by a bullet",
+					"Items take up less space", "Items will wrap when the line length is reached"
+				]
+			}
+		]
+	}
+}
