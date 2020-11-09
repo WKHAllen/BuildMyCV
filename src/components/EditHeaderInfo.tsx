@@ -3,40 +3,20 @@ import '../css/EditHeaderInfo.css';
 
 export interface EditHeaderInfoProps {
 	infoItems: string[];
+	onUpdate: () => void;
 }
 
-export interface EditHeaderInfoState {
-	infoItems: string[];
-}
-
-export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProps, EditHeaderInfoState> {
-	constructor(props: EditHeaderInfoProps) {
-		super(props);
-
-		this.state = {
-			infoItems: props.infoItems.length > 0 ? props.infoItems : ['']
-		};
-	}
-
+export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProps> {
 	render() {
 		return (
 			<div className="EditHeaderInfo">
 				<h5>Header Info</h5>
 				<div className="Header-Info-Items">
-					{this.state.infoItems.map((item, index) => 
-						<input type="text" className="form-control" id={`header-info-${index}`} defaultValue={item} onChange={() => this.updateHeader(index)} />
+					{this.props.infoItems.map((item, index) => 
+						<input type="text" className="form-control" id={`header-info-${index}`} defaultValue={item} onChange={this.props.onUpdate} />
 					)}
 				</div>
 			</div>
 		);
-	}
-
-	updateHeader(index: number) {
-		const itemContent = (document.getElementById(`header-info-${index}`) as HTMLInputElement).value;
-		const infoItems = this.state.infoItems;
-		infoItems[index] = itemContent;
-		this.setState({
-			infoItems: infoItems
-		});
 	}
 }
