@@ -1,13 +1,13 @@
 import React from 'react';
 import '../css/Section.css';
 
-export type SectionType = string // "string" | "list" | "shortlist" | "unbulletedlist";
+export type SectionType = "string" | "list" | "shortlist" | "unbulletedlist";
 export type SectionContentType = string | string[];
 
 export interface SectionProps {
 	name: string;
 	subtext?: string;
-	type: SectionType;
+	type: string;
 	content: SectionContentType;
 }
 
@@ -47,7 +47,7 @@ export default class Section extends React.Component<SectionProps> {
 	}
 
 	getContent() {
-		switch (this.props.type) {
+		switch (this.props.type as SectionType) {
 			case "string":
 				return this.renderString(this.props.content as string);
 			case "list":

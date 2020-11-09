@@ -2,5 +2,15 @@
 	background-color: #282c34;
 	color: white;
 	min-height: 100vh;
-	padding: 32px;
+}
+
+.Side-By-Side-Container {
+	padding: 16px;
+	margin: auto;
+}
+
+.Side-By-Side {
+	width: 50%;
+	float: left;
+	padding: 16px;
 }
