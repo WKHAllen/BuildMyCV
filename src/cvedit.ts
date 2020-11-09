@@ -1,7 +1,8 @@
 const cvNamesKey = 'CVNames';
+const cvOpenKey = 'CVOpen';
 const cvKeyPrefix = 'CV-';
 
-interface cvStructure {
+export interface cvStructure {
 	cv: {
 		header: {
 			title: string;
@@ -44,6 +45,11 @@ export function getCV(cvName: string): cvStructure | null {
 export function setCV(cvName: string, cv: cvStructure): void {
 	const cvString = JSON.stringify(cv);
 	localStorage.setItem(cvKeyPrefix + cvName, cvString);
+	let cvNames = getCVNames();
+	if (!cvNames.includes(cvName)) {
+		cvNames.push(cvName);
+		localStorage.setItem(cvNamesKey, JSON.stringify(cvNames));
+	}
 }
 
 export function renameCV(cvName: string, newCVName: string): void {
@@ -56,4 +62,12 @@ export function renameCV(cvName: string, newCVName: string): void {
 
 export function deleteCV(cvName: string): void {
 	localStorage.removeItem(cvKeyPrefix + cvName);
+}
+
+export function getOpen(): string | null {
+	return localStorage.getItem(cvOpenKey);
+}
+
+export function setOpen(cvName: string): void {
+	localStorage.setItem(cvOpenKey, cvName);
 }

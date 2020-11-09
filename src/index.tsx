@@ -3,11 +3,11 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './components/App';
 import reportWebVitals from './reportWebVitals';
-import * as cv from './cv.json';
+import * as exampleCV from './example.json';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App cv={cv.cv} />
+    <App example={exampleCV.cv} />
   </React.StrictMode>,
   document.getElementById('root')
 );

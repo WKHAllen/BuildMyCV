@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/EditHeaderInfo.css';
 
 export interface EditHeaderInfoProps {
-	
+	infoItems: string[];
 }
 
 export interface EditHeaderInfoState {
@@ -14,7 +14,7 @@ export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProp
 		super(props);
 
 		this.state = {
-			infoItems: ['']
+			infoItems: props.infoItems.length > 0 ? props.infoItems : ['']
 		};
 	}
 
