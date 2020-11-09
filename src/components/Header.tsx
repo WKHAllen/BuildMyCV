@@ -14,8 +14,8 @@ export default class Header extends React.Component<HeaderProps> {
 				<h1 className="Title">{this.props.title}</h1>
 				{this.props.subtitle ? <small className="Subtitle">{this.props.subtitle}</small> : null}
 				<ul className="HeadingInfo">
-					{this.props.headingInfo.map((info: string) =>
-						<li key={info}>{info}</li>
+					{this.props.headingInfo.map((info: string, index: number) =>
+						<li key={index}>{info}</li>
 					)}
 				</ul>
 				<hr />

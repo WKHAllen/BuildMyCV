@@ -1,14 +1,14 @@
 import React from 'react';
 import '../css/Section.css';
 
-type sectionType = "string" | "list" | "shortlist" | "unbulletedlist";
-type sectionContentType = string | string[];
+export type SectionType = string // "string" | "list" | "shortlist" | "unbulletedlist";
+export type SectionContentType = string | string[];
 
 export interface SectionProps {
 	name: string;
 	subtext?: string;
-	type: sectionType;
-	content: sectionContentType;
+	type: SectionType;
+	content: SectionContentType;
 }
 
 export default class Section extends React.Component<SectionProps> {
@@ -19,8 +19,8 @@ export default class Section extends React.Component<SectionProps> {
 	renderList(content: string[]) {
 		return (
 			<ul className="SectionContentList">
-				{content.map((item: string) =>
-					<li key={item}>{item}</li>
+				{content.map((item: string, index: number) =>
+					<li key={index}>{item}</li>
 				)}
 			</ul>
 		);
@@ -29,8 +29,8 @@ export default class Section extends React.Component<SectionProps> {
 	renderShortList(content: string[]) {
 		return (
 			<ul className="SectionContentShortList">
-				{content.map((item: string) =>
-					<li key={item}>{item}</li>
+				{content.map((item: string, index: number) =>
+					<li key={index}>{item}</li>
 				)}
 			</ul>
 		);
@@ -39,8 +39,8 @@ export default class Section extends React.Component<SectionProps> {
 	renderUnbulletedList(content: string[]) {
 		return (
 			<ul className="SectionContentUnbulletedList">
-				{content.map((item: string) =>
-					<li key={item}>{item}</li>
+				{content.map((item: string, index: number) =>
+					<li key={index}>{item}</li>
 				)}
 			</ul>
 		);
