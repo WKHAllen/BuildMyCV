@@ -14,7 +14,7 @@ export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProp
 		super(props);
 
 		this.state = {
-			infoItems: ['hello', 'world']
+			infoItems: ['']
 		};
 	}
 
@@ -23,11 +23,20 @@ export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProp
 			<div className="EditHeaderInfo">
 				<h5>Header Info</h5>
 				<div className="Header-Info-Items">
-					{this.state.infoItems.map((item) => 
-						<input type="text" className="form-control" defaultValue={item} />
+					{this.state.infoItems.map((item, index) => 
+						<input type="text" className="form-control" id={`header-info-${index}`} defaultValue={item} onChange={() => this.updateHeader(index)} />
 					)}
 				</div>
 			</div>
 		);
+	}
+
+	updateHeader(index: number) {
+		const itemContent = (document.getElementById(`header-info-${index}`) as HTMLInputElement).value;
+		const infoItems = this.state.infoItems;
+		infoItems[index] = itemContent;
+		this.setState({
+			infoItems: infoItems
+		});
 	}
 }
