@@ -67,6 +67,8 @@ export default class App extends React.Component<AppProps, AppState> {
 		this.setState({
 			cvData: newCVData
 		});
+
+		cvedit.setCV(this.state.openCV, { cv: newCVData });
 	}
 
 	private getElementsByClassName(className: string): Element[] {
