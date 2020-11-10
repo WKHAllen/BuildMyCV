@@ -14,6 +14,12 @@ export interface EditBodyProps {
 }
 
 export default class EditBody extends React.Component<EditBodyProps> {
+	constructor(props: EditBodyProps) {
+		super(props);
+
+		this.removeSection = this.removeSection.bind(this);
+	}
+
 	render() {
 		return (
 			<div className="EditBody">
@@ -24,12 +30,13 @@ export default class EditBody extends React.Component<EditBodyProps> {
 							index={index}
 							{...item}
 							onUpdate={this.props.onUpdate}
+							onRemoveSection={this.removeSection}
 							key={index} />
 					)}
 				</div>
 				<button
 					type="button"
-					className="btn btn-secondary btn-block"
+					className="btn btn-primary btn-block"
 					id="Add-Section"
 					onClick={() => this.newSection()}
 				>New section</button>
@@ -44,6 +51,15 @@ export default class EditBody extends React.Component<EditBodyProps> {
 			type: 'string',
 			content: ''
 		});
+
+		this.props.onUpdate({
+			sections: newSections
+		});
+	}
+
+	private removeSection(index: number): void {
+		let newSections = this.props.sections;
+		newSections.splice(index, 1);
 
 		this.props.onUpdate({
 			sections: newSections

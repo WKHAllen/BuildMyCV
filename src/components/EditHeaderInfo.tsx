@@ -28,7 +28,7 @@ export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps>
 								<div className="col-auto">
 									<button
 										type="button"
-										className="btn btn-light btn-block"
+										className="btn btn-danger btn-block"
 										onClick={() => this.removeItem(index)}
 									>&times;</button>
 								</div>
@@ -37,7 +37,7 @@ export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps>
 					</div>
 					<button
 						type="button"
-						className="btn btn-secondary btn-block"
+						className="btn btn-primary btn-block"
 						id="Add-Header-Info-Item"
 						onClick={() => this.newItem()}
 					>New item</button>

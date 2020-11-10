@@ -19,6 +19,7 @@ export interface EditSectionProps {
 	type: string;
 	content: string | string[];
 	onUpdate: (options: UpdateOptions) => void;
+	onRemoveSection: (index: number) => void;
 }
 
 export default class EditSection extends React.Component<EditSectionProps> {
@@ -68,6 +69,11 @@ export default class EditSection extends React.Component<EditSectionProps> {
 								}
 							})} />
 					</div>
+					<button
+						type="button"
+						className="btn btn-danger btn-block"
+						onClick={() => this.props.onRemoveSection(this.props.index)}
+					>Remove section</button>
 				</div>
 			</div>
 		);
