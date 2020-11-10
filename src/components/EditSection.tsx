@@ -2,7 +2,15 @@ import React from 'react';
 import '../css/EditSection.css';
 import ControlledInput from './ControlledInput';
 import ControlledTextarea from './ControlledTextarea';
+import ControlledSelect from './ControlledSelect';
 import { UpdateOptions } from './App';
+
+const sectionTypes = {
+	'string':         'Text',
+	'list':           'List',
+	'unbulletedlist': 'Unbulleted List',
+	'shortlist':      'Short List'
+};
 
 export interface EditSectionProps {
 	index: number;
@@ -36,7 +44,15 @@ export default class EditSection extends React.Component<EditSectionProps> {
 						value={this.props.subtext || ''}
 						onChange={(event) => this.props.onUpdate({ sectionItem: { index: this.props.index, subtext: event.target.value } })} />
 				</div>
-				{/* TODO: type dropdown */}
+				<div className="form-group">
+					<label htmlFor={`section-type-${this.props.index}`}>Type</label>
+					<ControlledSelect
+						className="form-control"
+						id={`section-type-${this.props.index}`}
+						value={this.props.type}
+						options={sectionTypes}
+						onChange={(event) => this.onTypeUpdate(event)} />
+				</div>
 				<div className="form-group">
 					<label htmlFor={`section-content-${this.props.index}`}>Content</label>
 					<ControlledTextarea
@@ -53,5 +69,22 @@ export default class EditSection extends React.Component<EditSectionProps> {
 				</div>
 			</div>
 		);
+	}
+
+	private onTypeUpdate(event: React.ChangeEvent<HTMLSelectElement>): void {
+		let newContent = this.props.content;
+		if (event.target.value === 'string' && typeof this.props.content !== 'string') {
+			newContent = this.props.content.join('\n');
+		} else if (event.target.value !== 'string' && typeof this.props.content === 'string') {
+			newContent = this.props.content.split('\n');
+		}
+
+		this.props.onUpdate({
+			sectionItem: {
+				index: this.props.index,
+				type: event.target.value,
+				content: newContent
+			}
+		});
 	}
 }
