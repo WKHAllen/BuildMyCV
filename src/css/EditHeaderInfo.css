@@ -1,3 +1,15 @@
-.Header-Info-Items input {
+.Header-Info-Item {
+	margin-top: 8px;
+}
+
+.Header-Info-Item div:first-child {
+	padding-right: 4px;
+}
+
+.Header-Info-Item div:last-child {
+	padding-left: 4px;
+}
+
+#Add-Header-Info-Item {
 	margin-top: 8px;
 }

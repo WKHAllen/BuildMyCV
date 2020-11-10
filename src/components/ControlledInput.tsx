@@ -14,23 +14,24 @@ export default class ControlledInput extends React.Component<ControlledInputProp
 		super(props);
 
 		this.state = {
-			value: props.value
+			value: props.value || ''
 		};
 	}
 
-	static getDerivedStateFromProps(props: ControlledInputProps, current_state: ControlledInputState) {
-		if (current_state.value !== props.value) {
+	static getDerivedStateFromProps(props: ControlledInputProps, currentState: ControlledInputState) {
+		if (currentState.value !== props.value) {
 			return {
 				value: props.value
 			}
 		}
-		return null;	  
+		return null;
 	}
 
 	render() {
 		return (
 			<input 
 				{...this.props}
+				value={this.state.value}
 				onChange={(event) => this.onInputChange(event)} />
 		);
 	}

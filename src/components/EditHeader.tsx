@@ -2,12 +2,13 @@ import React from 'react';
 import '../css/EditHeader.css';
 import EditorHeaderInfo from './EditHeaderInfo';
 import ControlledInput from './ControlledInput';
+import { UpdateOptions } from './App';
 
 export interface EditHeaderProps {
 	title: string;
 	subtitle?: string;
 	headingInfo: string[];
-	onUpdate: () => void;
+	onUpdate: (options: UpdateOptions) => void;
 }
 
 export default class EditorHeader extends React.Component<EditHeaderProps> {
@@ -22,7 +23,7 @@ export default class EditorHeader extends React.Component<EditHeaderProps> {
 						className="form-control"
 						id="name-input"
 						value={this.props.title}
-						onChange={this.props.onUpdate} />
+						onChange={(event) => this.props.onUpdate({ title: event.target.value })} />
 				</div>
 				<div className="form-group">
 					<label htmlFor="subtitle-input">Subtitle</label>
@@ -31,7 +32,7 @@ export default class EditorHeader extends React.Component<EditHeaderProps> {
 						className="form-control"
 						id="subtitle-input"
 						value={this.props.subtitle || ''}
-						onChange={this.props.onUpdate} />
+						onChange={(event) => this.props.onUpdate({ subtitle: event.target.value })} />
 				</div>
 				<EditorHeaderInfo
 					infoItems={this.props.headingInfo}

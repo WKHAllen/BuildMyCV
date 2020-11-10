@@ -2,10 +2,11 @@ import React from 'react';
 import '../css/Editor.css';
 import EditHeader from './EditHeader';
 import { CVProps } from './CV';
+import { UpdateOptions } from './App';
 
 export interface EditorProps {
 	cv: CVProps;
-	onUpdate: () => void;
+	onUpdate: (options: UpdateOptions) => void;
 }
 
 export default class Editor extends React.Component<EditorProps> {
