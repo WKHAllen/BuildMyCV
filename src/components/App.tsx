@@ -63,7 +63,8 @@ export default class App extends React.Component<AppProps, AppState> {
 						onUpdate={this.onUpdate} />
 				</div>
 				<div className="Side-By-Side">
-					<CV {...this.state.cvData} />
+					<CV
+						{...this.state.cvData} />
 				</div>
 			</div>
 		);

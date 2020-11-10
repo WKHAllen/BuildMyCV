@@ -21,7 +21,8 @@ export default class EditBody extends React.Component<EditBodyProps> {
 				<div className="Section-Items">
 					{this.props.sections.map((item, index) => 
 						<EditSection
-							section={{ index, ...item }}
+							index={index}
+							{...item}
 							onUpdate={this.props.onUpdate} />
 					)}
 				</div>
