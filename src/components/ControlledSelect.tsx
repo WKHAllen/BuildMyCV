@@ -38,8 +38,11 @@ export default class ControlledSelect extends React.Component<ControlledSelectPr
 				{...this.props}
 				value={this.state.value}
 				onChange={(event) => this.onInputChange(event)}>
-					{Object.keys(this.props.options).map((option) => 
-						<option value={option}>{this.props.options[option]}</option>
+					{Object.keys(this.props.options).map((option, index) => 
+						<option
+							value={option}
+							key={index}
+						>{this.props.options[option]}</option>
 					)}
 			</select>
 		);

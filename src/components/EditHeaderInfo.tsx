@@ -13,7 +13,7 @@ export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps>
 		return (
 			<div className="EditHeaderInfo card">
 				<div className="card-body">
-					<h5 className="card-title">Header Info</h5>
+					<h5 className="card-title">Info</h5>
 					<div className="Header-Info-Items">
 						{this.props.infoItems.map((item, index) => 
 							<div className="row Header-Info-Item" key={`header-info-${index}`}>
@@ -40,7 +40,7 @@ export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps>
 						className="btn btn-light btn-block"
 						id="Add-Header-Info-Item"
 						onClick={() => this.newItem()}
-					>+</button>
+					>New item</button>
 				</div>
 			</div>
 		);

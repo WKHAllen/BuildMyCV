@@ -23,7 +23,8 @@ export default class EditBody extends React.Component<EditBodyProps> {
 						<EditSection
 							index={index}
 							{...item}
-							onUpdate={this.props.onUpdate} />
+							onUpdate={this.props.onUpdate}
+							key={index} />
 					)}
 				</div>
 			</div>
