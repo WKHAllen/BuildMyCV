@@ -8,7 +8,7 @@ export interface EditHeaderInfoProps {
 	onUpdate: (options: UpdateOptions) => void;
 }
 
-export default class EditorHeaderInfo extends React.Component<EditHeaderInfoProps> {
+export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps> {
 	render() {
 		return (
 			<div className="EditHeaderInfo">

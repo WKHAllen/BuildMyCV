@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/EditHeader.css';
-import EditorHeaderInfo from './EditHeaderInfo';
+import EditHeaderInfo from './EditHeaderInfo';
 import ControlledInput from './ControlledInput';
 import { UpdateOptions } from './App';
 
@@ -11,7 +11,7 @@ export interface EditHeaderProps {
 	onUpdate: (options: UpdateOptions) => void;
 }
 
-export default class EditorHeader extends React.Component<EditHeaderProps> {
+export default class EditHeader extends React.Component<EditHeaderProps> {
 	render() {
 		return (
 			<div className="EditHeader">
@@ -34,7 +34,7 @@ export default class EditorHeader extends React.Component<EditHeaderProps> {
 						value={this.props.subtitle || ''}
 						onChange={(event) => this.props.onUpdate({ subtitle: event.target.value })} />
 				</div>
-				<EditorHeaderInfo
+				<EditHeaderInfo
 					infoItems={this.props.headingInfo}
 					onUpdate={this.props.onUpdate} />
 			</div>

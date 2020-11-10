@@ -8,15 +8,15 @@ export interface CVStructure {
 			title: string;
 			subtitle?: string;
 			headingInfo: string[];
-		},
+		};
 		body: {
 			sections: {
 				name: string;
 				subtext?: string;
 				type: string;
 				content: string | string[];
-			}[]
-		}
+			}[];
+		};
 	}
 }
 
