@@ -2,7 +2,7 @@ const cvNamesKey = 'CVNames';
 const cvOpenKey = 'CVOpen';
 const cvKeyPrefix = 'CV-';
 
-export interface cvStructure {
+export interface CVStructure {
 	cv: {
 		header: {
 			title: string;
@@ -33,7 +33,7 @@ export function cvExists(cvName: string): boolean {
 	return localStorage.getItem(cvKeyPrefix + cvName) !== null;
 }
 
-export function getCV(cvName: string): cvStructure | null {
+export function getCV(cvName: string): CVStructure | null {
 	const cvString = localStorage.getItem(cvKeyPrefix + cvName);
 	if (cvString === null) {
 		return null;
@@ -42,7 +42,7 @@ export function getCV(cvName: string): cvStructure | null {
 	}
 }
 
-export function setCV(cvName: string, cv: cvStructure): void {
+export function setCV(cvName: string, cv: CVStructure): void {
 	const cvString = JSON.stringify(cv);
 	localStorage.setItem(cvKeyPrefix + cvName, cvString);
 	let cvNames = getCVNames();

@@ -31,7 +31,7 @@ export default class App extends React.Component<AppProps, AppState> {
 		const openCV = cvedit.getOpen();
 		this.setState({
 			openCV: openCV || 'example',
-			cvData: (cvedit.getCV(openCV || 'example') as cvedit.cvStructure).cv
+			cvData: (cvedit.getCV(openCV || 'example') as cvedit.CVStructure).cv
 		});
 	}
 
@@ -40,17 +40,41 @@ export default class App extends React.Component<AppProps, AppState> {
 			<div className="App Side-By-Side-Container">
 				<div className="Side-By-Side">
 					<Editor
-						cv={this.props.example}
+						cv={this.state.cvData}
 						onUpdate={() => this.onUpdate()} />
 				</div>
 				<div className="Side-By-Side">
-					<CV {...this.props.example} />
+					<CV {...this.state.cvData} />
 				</div>
 			</div>
 		);
 	}
 
-	onUpdate() {
-		
+	private onUpdate() {
+		const title = (document.getElementById('name-input') as HTMLInputElement).value;
+		const subtitle = (document.getElementById('subtitle-input') as HTMLInputElement).value;
+		const headingInfo = this.getElementsByClassName('Header-Info-Item').map((element) => (element as HTMLInputElement).value);
+
+		const newCVData: CVProps = {
+			header: {
+				title,
+				subtitle,
+				headingInfo
+			},
+			body: this.state.cvData.body
+		};
+
+		this.setState({
+			cvData: newCVData
+		});
+	}
+
+	private getElementsByClassName(className: string): Element[] {
+		let elements = [];
+		const returnedElements = document.getElementsByClassName(className);
+		for (let i = 0; i < returnedElements.length; i++) {
+			elements.push(returnedElements.item(i) as Element);
+		}
+		return elements;
 	}
 }
