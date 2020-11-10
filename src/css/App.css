@@ -1,27 +1,39 @@
-html {
-	background-color: #282c34;
-}
-
 .App {
 	background-color: #282c34;
-	color: white;
-	min-height: 100vh;
-}
-
-.Side-By-Side-Container {
-	padding: 16px;
-	margin: auto;
+	width: 100%;
+	height: 100%;
 	overflow: auto;
+	width: 100%;
+	height: 100%;
+	margin: 0;
 }
 
-.Side-By-Side-Container::after {
+.App::after {
 	content: "";
 	clear: both;
 	display: table;
 }
 
-.Side-By-Side {
+.App-Left {
 	width: 50%;
 	float: left;
-	padding: 16px;
+	padding: 32px;
+	width: 50%;
+	height: 100%;
+	position: fixed;
+	left: 0;
+	overflow: auto;
+	background-color: #282c34;
+}
+
+.App-Right {
+	width: 50%;
+	float: left;
+	padding: 32px;
+	width: 50%;
+	height: 100%;
+	position: fixed;
+	right: 0;
+	overflow: auto;
+	background-color: #282c34;
 }

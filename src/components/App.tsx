@@ -62,13 +62,13 @@ export default class App extends React.Component<AppProps, AppState> {
 
 	render() {
 		return (
-			<div className="App Side-By-Side-Container">
-				<div className="Side-By-Side">
+			<div className="App">
+				<div className="App-Left">
 					<Editor
 						cv={this.state.cvData}
 						onUpdate={this.onUpdate} />
 				</div>
-				<div className="Side-By-Side">
+				<div className="App-Right">
 					<CV
 						{...this.state.cvData} />
 				</div>
