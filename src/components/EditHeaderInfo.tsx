@@ -11,35 +11,37 @@ export interface EditHeaderInfoProps {
 export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps> {
 	render() {
 		return (
-			<div className="EditHeaderInfo">
-				<h5>Header Info</h5>
-				<div className="Header-Info-Items">
-					{this.props.infoItems.map((item, index) => 
-						<div className="row Header-Info-Item" key={`header-info-${index}`}>
-							<div className="col">
-								<ControlledInput
-									type="text"
-									className="form-control Header-Info-Item-Input"
-									id={`header-info-${index}`}
-									value={item}
-									onChange={(event) => this.props.onUpdate({ headingInfoItem: { index, value: event.target.value } })} />
+			<div className="EditHeaderInfo card">
+				<div className="card-body">
+					<h5 className="card-title">Header Info</h5>
+					<div className="Header-Info-Items">
+						{this.props.infoItems.map((item, index) => 
+							<div className="row Header-Info-Item" key={`header-info-${index}`}>
+								<div className="col">
+									<ControlledInput
+										type="text"
+										className="form-control Header-Info-Item-Input"
+										id={`header-info-${index}`}
+										value={item}
+										onChange={(event) => this.props.onUpdate({ headingInfoItem: { index, value: event.target.value } })} />
+								</div>
+								<div className="col-auto">
+									<button
+										type="button"
+										className="btn btn-light btn-block"
+										onClick={() => this.removeItem(index)}
+									>&times;</button>
+								</div>
 							</div>
-							<div className="col-auto">
-								<button
-									type="button"
-									className="btn btn-light btn-block"
-									onClick={() => this.removeItem(index)}
-								>&times;</button>
-							</div>
-						</div>
-					)}
+						)}
+					</div>
+					<button
+						type="button"
+						className="btn btn-light btn-block"
+						id="Add-Header-Info-Item"
+						onClick={() => this.newItem()}
+					>+</button>
 				</div>
-				<button
-					type="button"
-					className="btn btn-light btn-block"
-					id="Add-Header-Info-Item"
-					onClick={() => this.newItem()}
-				>+</button>
 			</div>
 		);
 	}

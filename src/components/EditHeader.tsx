@@ -16,23 +16,28 @@ export default class EditHeader extends React.Component<EditHeaderProps> {
 		return (
 			<div className="EditHeader">
 				<h3>Header</h3>
-				<div className="form-group">
-					<label htmlFor="name-input">Name</label>
-					<ControlledInput
-						type="text"
-						className="form-control"
-						id="name-input"
-						value={this.props.title}
-						onChange={(event) => this.props.onUpdate({ title: event.target.value })} />
-				</div>
-				<div className="form-group">
-					<label htmlFor="subtitle-input">Subtitle</label>
-					<ControlledInput
-						type="text"
-						className="form-control"
-						id="subtitle-input"
-						value={this.props.subtitle || ''}
-						onChange={(event) => this.props.onUpdate({ subtitle: event.target.value })} />
+				<div className="EditHeaderTitle card">
+					<div className="card-body">
+						<h5 className="card-title">Title</h5>
+						<div className="form-group">
+							<label htmlFor="name-input">Name</label>
+							<ControlledInput
+								type="text"
+								className="form-control"
+								id="name-input"
+								value={this.props.title}
+								onChange={(event) => this.props.onUpdate({ title: event.target.value })} />
+						</div>
+						<div className="form-group">
+							<label htmlFor="subtitle-input">Subtitle</label>
+							<ControlledInput
+								type="text"
+								className="form-control"
+								id="subtitle-input"
+								value={this.props.subtitle || ''}
+								onChange={(event) => this.props.onUpdate({ subtitle: event.target.value })} />
+						</div>
+					</div>
 				</div>
 				<EditHeaderInfo
 					infoItems={this.props.headingInfo}
