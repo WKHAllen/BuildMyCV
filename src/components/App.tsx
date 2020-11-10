@@ -28,6 +28,12 @@ export interface UpdateOptions {
 		type?: string;
 		content?: string | string[];
 	};
+	sections?: {
+		name: string;
+		subtext?: string;
+		type: string;
+		content: string | string[];
+	}[];
 }
 
 export default class App extends React.Component<AppProps, AppState> {

@@ -27,7 +27,26 @@ export default class EditBody extends React.Component<EditBodyProps> {
 							key={index} />
 					)}
 				</div>
+				<button
+					type="button"
+					className="btn btn-secondary btn-block"
+					id="Add-Section"
+					onClick={() => this.newSection()}
+				>New section</button>
 			</div>
 		);
+	}
+
+	private newSection(): void {
+		let newSections = this.props.sections;
+		newSections.push({
+			name: '',
+			type: 'string',
+			content: ''
+		});
+
+		this.props.onUpdate({
+			sections: newSections
+		});
 	}
 }
