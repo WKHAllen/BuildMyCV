@@ -14,11 +14,14 @@ const sectionTypes = {
 
 export interface EditSectionProps {
 	index: number;
+	numSections: number;
 	name: string;
 	subtext?: string;
 	type: string;
 	content: string | string[];
 	onUpdate: (options: UpdateOptions) => void;
+	onMoveSectionUp: (index: number) => void;
+	onMoveSectionDown: (index: number) => void;
 	onRemoveSection: (index: number) => void;
 }
 
@@ -69,11 +72,25 @@ export default class EditSection extends React.Component<EditSectionProps> {
 								}
 							})} />
 					</div>
+					{this.props.index > 0 ?
+						<button
+							type="button"
+							className="btn btn-success btn-block"
+							onClick={() => this.props.onMoveSectionUp(this.props.index)}
+						>&uarr; Move up &uarr;</button>
+					: null}
+					{this.props.index < this.props.numSections - 1 ?
+						<button
+							type="button"
+							className="btn btn-success btn-block"
+							onClick={() => this.props.onMoveSectionDown(this.props.index)}
+						>&darr; Move down &darr;</button>
+					: null}
 					<button
 						type="button"
 						className="btn btn-danger btn-block"
 						onClick={() => this.props.onRemoveSection(this.props.index)}
-					>Remove section</button>
+					>&times; Remove section &times;</button>
 				</div>
 			</div>
 		);

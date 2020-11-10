@@ -40,7 +40,7 @@ export default class EditHeaderInfo extends React.Component<EditHeaderInfoProps>
 						className="btn btn-primary btn-block"
 						id="Add-Header-Info-Item"
 						onClick={() => this.newItem()}
-					>New item</button>
+					>&#43; New item &#43;</button>
 				</div>
 			</div>
 		);

@@ -17,6 +17,8 @@ export default class EditBody extends React.Component<EditBodyProps> {
 	constructor(props: EditBodyProps) {
 		super(props);
 
+		this.moveSectionUp = this.moveSectionUp.bind(this);
+		this.moveSectionDown = this.moveSectionDown.bind(this);
 		this.removeSection = this.removeSection.bind(this);
 	}
 
@@ -28,8 +30,11 @@ export default class EditBody extends React.Component<EditBodyProps> {
 					{this.props.sections.map((item, index) => 
 						<EditSection
 							index={index}
+							numSections={this.props.sections.length}
 							{...item}
 							onUpdate={this.props.onUpdate}
+							onMoveSectionUp={this.moveSectionUp}
+							onMoveSectionDown={this.moveSectionDown}
 							onRemoveSection={this.removeSection}
 							key={index} />
 					)}
@@ -39,7 +44,7 @@ export default class EditBody extends React.Component<EditBodyProps> {
 					className="btn btn-primary btn-block"
 					id="Add-Section"
 					onClick={() => this.newSection()}
-				>New section</button>
+				>&#43; New section &#43;</button>
 			</div>
 		);
 	}
@@ -51,6 +56,30 @@ export default class EditBody extends React.Component<EditBodyProps> {
 			type: 'string',
 			content: ''
 		});
+
+		this.props.onUpdate({
+			sections: newSections
+		});
+	}
+
+	private moveSectionUp(index: number): void {
+		let newSections = this.props.sections;
+		const thisSection = newSections[index];
+		const otherSection = newSections[index - 1];
+		newSections[index - 1] = thisSection;
+		newSections[index] = otherSection;
+
+		this.props.onUpdate({
+			sections: newSections
+		});
+	}
+
+	private moveSectionDown(index: number): void {
+		let newSections = this.props.sections;
+		const thisSection = newSections[index];
+		const otherSection = newSections[index + 1];
+		newSections[index + 1] = thisSection;
+		newSections[index] = otherSection;
 
 		this.props.onUpdate({
 			sections: newSections
