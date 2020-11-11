@@ -5,6 +5,7 @@ import * as cvedit from '../cvedit';
 import Editor from'./Editor';
 import CV, { CVProps } from './CV';
 import AppControl from './AppControl';
+import Export from './Export';
 
 export interface AppProps {
 	example: CVProps;
@@ -81,10 +82,8 @@ export default class App extends React.Component<AppProps, AppState> {
 						</div>
 					</Route>
 					<Route exact path="/export">
-						<div className="AppExport">
-							<CV
-								{...this.state.cvData} />
-						</div>
+						<Export
+							cvData={this.state.cvData} />
 					</Route>
 				</Switch>
 			</Router>
