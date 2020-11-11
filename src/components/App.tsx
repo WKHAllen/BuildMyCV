@@ -105,6 +105,9 @@ export default class App extends React.Component<AppProps, AppState> {
 				newCVData.body.sections[options.sectionItem.index].content = options.sectionItem.content;
 			}
 		}
+		if (options.sections !== undefined) {
+			newCVData.body.sections = options.sections;
+		}
 
 		this.setState({
 			cvData: newCVData
