@@ -1,8 +1,10 @@
 import React from 'react';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import '../css/App.css';
 import * as cvedit from '../cvedit';
 import Editor from'./Editor';
 import CV, { CVProps } from './CV';
+import AppControl from './AppControl';
 
 export interface AppProps {
 	example: CVProps;
@@ -62,17 +64,30 @@ export default class App extends React.Component<AppProps, AppState> {
 
 	render() {
 		return (
-			<div className="App">
-				<div className="App-Left">
-					<Editor
-						cv={this.state.cvData}
-						onUpdate={this.onUpdate} />
-				</div>
-				<div className="App-Right">
-					<CV
-						{...this.state.cvData} />
-				</div>
-			</div>
+			<Router>
+				<Switch>
+					<Route exact path="/">
+						<div className="App">
+							<div className="App-Left">
+								<AppControl />
+								<Editor
+									cv={this.state.cvData}
+									onUpdate={this.onUpdate} />
+							</div>
+							<div className="App-Right">
+								<CV
+									{...this.state.cvData} />
+							</div>
+						</div>
+					</Route>
+					<Route exact path="/export">
+						<div className="AppExport">
+							<CV
+								{...this.state.cvData} />
+						</div>
+					</Route>
+				</Switch>
+			</Router>
 		);
 	}
 
