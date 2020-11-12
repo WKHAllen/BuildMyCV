@@ -12,6 +12,7 @@ export interface AppProps {
 }
 
 export interface AppState {
+	cvOptions: string[];
 	openCV: string;
 	cvData: CVProps;
 }
@@ -44,11 +45,13 @@ export default class App extends React.Component<AppProps, AppState> {
 		super(props);
 
 		this.state = {
+			cvOptions: [],
 			openCV: 'example',
-			cvData: props.example
+			cvData: this.duplicate(props.example)
 		};
 
 		this.onUpdate = this.onUpdate.bind(this);
+		this.resetExample = this.resetExample.bind(this);
 	}
 
 	componentDidMount() {
@@ -56,10 +59,12 @@ export default class App extends React.Component<AppProps, AppState> {
 			cvedit.setCV('example', { cv: this.props.example });
 		}
 
+		const cvOptions = cvedit.getCVNames();
 		const openCV = cvedit.getOpen();
 		this.setState({
+			cvOptions: cvOptions,
 			openCV: openCV || 'example',
-			cvData: (cvedit.getCV(openCV || 'example') as cvedit.CVStructure).cv
+			cvData: this.duplicate((cvedit.getCV(openCV || 'example') as cvedit.CVStructure).cv)
 		});
 	}
 
@@ -70,7 +75,10 @@ export default class App extends React.Component<AppProps, AppState> {
 					<Route exact path="/">
 						<div className="App">
 							<div className="App-Left">
-								<AppControl />
+								<AppControl
+									cvOptions={this.state.cvOptions}
+									openCV={this.state.openCV}
+									resetExample={this.resetExample} />
 								<Editor
 									cv={this.state.cvData}
 									onUpdate={this.onUpdate} />
@@ -128,5 +136,17 @@ export default class App extends React.Component<AppProps, AppState> {
 		});
 
 		cvedit.setCV(this.state.openCV, { cv: newCVData });
+	}
+
+	private resetExample(): void {
+		cvedit.setCV('example', { cv: this.props.example });
+		this.setState({
+			openCV: 'example',
+			cvData: this.duplicate(this.props.example)
+		});
+	}
+
+	private duplicate(object: any): any {
+		return JSON.parse(JSON.stringify(object));
 	}
 }

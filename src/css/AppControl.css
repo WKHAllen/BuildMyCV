@@ -1,3 +1,21 @@
 .AppControl {
 	margin-bottom: 32px;
 }
+
+.ExportButton {
+	margin-bottom: 16px;
+}
+
+.AppControl-Row {
+	margin-bottom: 16px;
+}
+
+.AppControl-Row div:first-child {
+	padding-left: 16px;
+	padding-right: 8px;
+}
+
+.AppControl-Row div:last-child {
+	padding-left: 8px;
+	padding-right: 16px;
+}
