@@ -79,11 +79,9 @@ export default class App extends React.Component<AppProps, AppState> {
 						<div className="App">
 							<div className="App-Left">
 								<AppControl
-									cvOptions={this.state.cvOptions}
-									openCV={this.state.openCV}
-									resetExample={this.resetExample}
-									newCV={this.newCV} />
+									resetExample={this.resetExample} />
 								<Editor
+									openCV={this.state.openCV}
 									cv={this.state.cvData}
 									onUpdate={this.onUpdate} />
 							</div>

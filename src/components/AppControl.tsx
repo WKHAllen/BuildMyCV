@@ -3,31 +3,10 @@ import { Link } from 'react-router-dom';
 import '../css/AppControl.css';
 
 export interface AppControlProps {
-	cvOptions: string[];
-	openCV: string;
 	resetExample: () => void;
-	newCV: (cvName: string) => void;
 }
 
-export interface AppControlState {
-	renameCVModalOpen: boolean;
-	deleteCVModalOpen: boolean;
-	newCVModalName: string;
-	renameCVModalName: string;
-}
-
-export default class AppControl extends React.Component<AppControlProps, AppControlState> {
-	constructor(props: AppControlProps) {
-		super(props);
-
-		this.state = {
-			renameCVModalOpen: false,
-			deleteCVModalOpen: false,
-			newCVModalName: '',
-			renameCVModalName: ''
-		};
-	}
-
+export default class AppControl extends React.Component<AppControlProps> {
 	render() {
 		return (
 			<div className="AppControl">
