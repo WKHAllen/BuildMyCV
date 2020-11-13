@@ -35,17 +35,6 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 				</Link>
 				<div className="card mb-3">
 					<div className="card-body">
-						<h3 className="card-title">Select CV</h3>
-						<ControlledSelect
-							className="form-control"
-							id="cv-select"
-							options={this.arrayToMap(this.props.cvOptions)}
-							value={this.props.openCV}
-							onChange={(event) => this.props.selectCV(event.target.value)} />
-					</div>
-				</div>
-				<div className="card mb-3">
-					<div className="card-body">
 						<h3 className="card-title">New CV</h3>
 						<form onSubmit={(event) => this.onNewCVSubmit(event)}>
 							<div className="row">
