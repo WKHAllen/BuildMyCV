@@ -55,6 +55,7 @@ export default class App extends React.Component<AppProps, AppState> {
 		this.resetExample = this.resetExample.bind(this);
 		this.selectCV = this.selectCV.bind(this);
 		this.createCV = this.createCV.bind(this);
+		this.renameCV = this.renameCV.bind(this);
 	}
 
 	componentDidMount() {
@@ -99,7 +100,8 @@ export default class App extends React.Component<AppProps, AppState> {
 							cvOptions={this.state.cvOptions}
 							openCV={this.state.openCV}
 							selectCV={this.selectCV}
-							createCV={this.createCV} />
+							createCV={this.createCV}
+							renameCV={this.renameCV} />
 					</Route>
 					<Route exact path="/export">
 						<Export
@@ -175,6 +177,14 @@ export default class App extends React.Component<AppProps, AppState> {
 			cvOptions: cvOptions,
 			openCV: cvName,
 			cvData: this.duplicate(this.props.example)
+		});
+	}
+
+	private renameCV(cvName: string, newCVName: string): void {
+		cvedit.renameCV(cvName, newCVName);
+		const cvOptions = cvedit.getCVNames();
+		this.setState({
+			cvOptions: cvOptions,
 		});
 	}
 

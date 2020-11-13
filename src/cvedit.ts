@@ -53,10 +53,18 @@ export function setCV(cvName: string, cv: CVStructure): void {
 }
 
 export function renameCV(cvName: string, newCVName: string): void {
-	const cvData = localStorage.getItem(cvName);
-	if (cvData !== null) {
-		localStorage.setItem(cvKeyPrefix + newCVName, cvData);
-		localStorage.removeItem(cvKeyPrefix + cvName);
+	if (cvName !== newCVName) {
+		const cvData = localStorage.getItem(cvKeyPrefix + cvName);
+		if (cvData !== null) {
+			localStorage.setItem(cvKeyPrefix + newCVName, cvData);
+			localStorage.removeItem(cvKeyPrefix + cvName);
+			let cvNames = getCVNames();
+			const nameIndex = cvNames.indexOf(cvName);
+			if (nameIndex !== -1) {
+				cvNames[nameIndex] = newCVName;
+				localStorage.setItem(cvNamesKey, JSON.stringify(cvNames));
+			}
+		}
 	}
 }
 

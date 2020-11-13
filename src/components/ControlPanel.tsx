@@ -9,10 +9,13 @@ export interface ControlPanelProps {
 	openCV: string;
 	selectCV: (cvName: string) => void;
 	createCV: (cvName: string) => void;
+	renameCV: (cvName: string, newCVName: string) => void;
 }
 
 export interface ControlPanelState {
 	newCVName: string;
+	selectedRenameCV: string;
+	renamedCVName: string;
 }
 
 export default class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
@@ -20,7 +23,9 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		super(props);
 
 		this.state = {
-			newCVName: ''
+			newCVName: '',
+			selectedRenameCV: props.openCV,
+			renamedCVName: props.openCV
 		};
 	}
 
@@ -33,7 +38,7 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 					className="btn btn-primary btn-block mb-3">
 						&larr; Return to home page
 				</Link>
-				<div className="card mb-3">
+				<div className="ControlPanel-Card card mb-3">
 					<div className="card-body">
 						<h3 className="card-title">New CV</h3>
 						<form onSubmit={(event) => this.onNewCVSubmit(event)}>
@@ -51,7 +56,43 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 									<button
 										type="submit"
 										className="btn btn-success btn-block">
-											Create CV
+											Create
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+				<div className="ControlPanel-Card card mb-3">
+					<div className="card-body">
+						<h3 className="card-title">Rename CV</h3>
+						<form onSubmit={(event) => this.onRenameCVSubmit(event)}>
+							<div className="row">
+								<div className="col-4">
+									<ControlledSelect
+										className="form-control"
+										id="cv-select"
+										options={this.arrayToMap(this.props.cvOptions)}
+										value={this.state.selectedRenameCV}
+										onChange={(event) => this.setState({
+											selectedRenameCV: event.target.value,
+											renamedCVName: event.target.value
+										})} />
+								</div>
+								<div className="col-4">
+									<ControlledInput
+										type="text"
+										className="form-control"
+										id="rename-cv-input"
+										value={this.state.renamedCVName}
+										placeholder="New CV name"
+										onChange={(event) => this.setState({ renamedCVName: event.target.value })} />
+								</div>
+								<div className="col-4">
+									<button
+										type="submit"
+										className="btn btn-primary btn-block">
+											Rename
 									</button>
 								</div>
 							</div>
@@ -100,6 +141,17 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		event.preventDefault();
 
 		this.props.createCV(this.state.newCVName);
+		this.props.selectCV(this.state.newCVName);
+	}
+
+	private onRenameCVSubmit(event: React.FormEvent<HTMLFormElement>): void {
+		event.preventDefault();
+
+		this.props.renameCV(this.state.selectedRenameCV, this.state.renamedCVName);
+		this.setState({
+			selectedRenameCV: this.state.renamedCVName
+		});
+		this.props.selectCV(this.state.renamedCVName);
 	}
 
 	private arrayToMap(arr: any[]): any {
