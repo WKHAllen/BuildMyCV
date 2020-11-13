@@ -70,6 +70,12 @@ export function renameCV(cvName: string, newCVName: string): void {
 
 export function deleteCV(cvName: string): void {
 	localStorage.removeItem(cvKeyPrefix + cvName);
+	let cvNames = getCVNames();
+	const nameIndex = cvNames.indexOf(cvName);
+	if (nameIndex !== -1) {
+		cvNames.splice(nameIndex, 1);
+		localStorage.setItem(cvNamesKey, JSON.stringify(cvNames));
+	}
 }
 
 export function getOpen(): string | null {

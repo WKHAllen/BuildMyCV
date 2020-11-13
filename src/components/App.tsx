@@ -56,6 +56,7 @@ export default class App extends React.Component<AppProps, AppState> {
 		this.selectCV = this.selectCV.bind(this);
 		this.createCV = this.createCV.bind(this);
 		this.renameCV = this.renameCV.bind(this);
+		this.deleteCV = this.deleteCV.bind(this);
 	}
 
 	componentDidMount() {
@@ -101,7 +102,8 @@ export default class App extends React.Component<AppProps, AppState> {
 							openCV={this.state.openCV}
 							selectCV={this.selectCV}
 							createCV={this.createCV}
-							renameCV={this.renameCV} />
+							renameCV={this.renameCV}
+							deleteCV={this.deleteCV} />
 					</Route>
 					<Route exact path="/export">
 						<Export
@@ -186,6 +188,19 @@ export default class App extends React.Component<AppProps, AppState> {
 		this.setState({
 			cvOptions: cvOptions,
 		});
+	}
+
+	private deleteCV(cvName: string): void {
+		if (cvName !== 'example') {
+			cvedit.deleteCV(cvName);
+			const cvOptions = cvedit.getCVNames();
+			const openCV = cvOptions[0];
+			cvedit.setOpen(openCV);
+			this.setState({
+				cvOptions: cvOptions,
+				openCV: openCV
+			});
+		}
 	}
 
 	private duplicate(object: any): any {

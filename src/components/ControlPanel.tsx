@@ -10,12 +10,14 @@ export interface ControlPanelProps {
 	selectCV: (cvName: string) => void;
 	createCV: (cvName: string) => void;
 	renameCV: (cvName: string, newCVName: string) => void;
+	deleteCV: (cvName: string) => void;
 }
 
 export interface ControlPanelState {
 	newCVName: string;
 	selectedRenameCV: string;
 	renamedCVName: string;
+	selectedDeleteCV: string;
 }
 
 export default class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
@@ -25,7 +27,8 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		this.state = {
 			newCVName: '',
 			selectedRenameCV: props.openCV,
-			renamedCVName: props.openCV
+			renamedCVName: props.openCV,
+			selectedDeleteCV: props.openCV
 		};
 	}
 
@@ -71,7 +74,7 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 								<div className="col-4">
 									<ControlledSelect
 										className="form-control"
-										id="cv-select"
+										id="rename-cv-select"
 										options={this.arrayToMap(this.props.cvOptions)}
 										value={this.state.selectedRenameCV}
 										onChange={(event) => this.setState({
@@ -99,40 +102,30 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 						</form>
 					</div>
 				</div>
-				{/* <div className="ControlPanel-Row row">
-					<div className="col-6">
-						<ControlledSelect
-							className="form-control"
-							id="cv-select"
-							options={this.arrayToMap(this.props.cvOptions)}
-							value={this.props.openCV} />
-					</div>
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-success btn-block"
-							data-toggle="modal"
-							data-target="#exampleModal">
-								New CV
-						</button>
+				<div className="ControlPanel-Card card mb-3">
+					<div className="card-body">
+						<h3 className="card-title">Delete CV</h3>
+						<form onSubmit={(event) => this.onDeleteCVSubmit(event)}>
+							<div className="row">
+								<div className="col-8">
+									<ControlledSelect
+										className="form-control"
+										id="delete-cv-select"
+										options={this.arrayToMap(this.props.cvOptions)}
+										value={this.state.selectedDeleteCV}
+										onChange={(event) => this.setState({ selectedDeleteCV: event.target.value })} />
+								</div>
+								<div className="col-4">
+									<button
+										type="submit"
+										className="btn btn-danger btn-block">
+											Delete
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
-				<div className="ControlPanel-Row row">
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-warning btn-block">
-								Rename CV
-						</button>
-					</div>
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-danger btn-block">
-								Delete CV
-						</button>
-					</div>
-				</div> */}
 			</div>
 		);
 	}
@@ -152,6 +145,12 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 			selectedRenameCV: this.state.renamedCVName
 		});
 		this.props.selectCV(this.state.renamedCVName);
+	}
+
+	private onDeleteCVSubmit(event: React.FormEvent<HTMLFormElement>): void {
+		event.preventDefault();
+
+		this.props.deleteCV(this.state.selectedDeleteCV);
 	}
 
 	private arrayToMap(arr: any[]): any {
