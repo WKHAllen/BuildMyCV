@@ -12,6 +12,19 @@ export interface ControlledSelectProps extends React.DetailedHTMLProps<React.Sel
 
 export interface ControlledSelectState {
 	value: string;
+	options: Options;
+}
+
+function optionsEqual(a: Options, b: Options): boolean {
+	if (Object.keys(a).length !== Object.keys(b).length) {
+		return false;
+	}
+	for (let i = 0; i < Object.keys(a).length; i++) {
+		if (a[i] !== b[i]) {
+			return false;
+		}
+	}
+	return true;
 }
 
 export default class ControlledSelect extends React.Component<ControlledSelectProps, ControlledSelectState> {
@@ -19,14 +32,16 @@ export default class ControlledSelect extends React.Component<ControlledSelectPr
 		super(props);
 
 		this.state = {
-			value: props.value || ''
+			value: props.value || '',
+			options: props.options
 		};
 	}
 
 	static getDerivedStateFromProps(props: ControlledSelectProps, currentState: ControlledSelectState) {
-		if (currentState.value !== props.value) {
+		if (currentState.value !== props.value || !optionsEqual(currentState.options, props.options)) {
 			return {
-				value: props.value
+				value: props.value,
+				options: props.options
 			}
 		}
 		return null;

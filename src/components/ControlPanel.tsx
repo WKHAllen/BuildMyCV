@@ -1,17 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/ControlPanel.css';
+import ControlledInput from './ControlledInput';
 import ControlledSelect from './ControlledSelect';
 
 export interface ControlPanelProps {
 	cvOptions: string[];
 	openCV: string;
 	selectCV: (cvName: string) => void;
+	createCV: (cvName: string) => void;
 }
 
 export interface ControlPanelState {
-	cvOptions: string[];
-	openCV: string;
+	newCVName: string;
 }
 
 export default class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
@@ -19,8 +20,7 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		super(props);
 
 		this.state = {
-			cvOptions: props.cvOptions,
-			openCV: props.openCV
+			newCVName: ''
 		};
 	}
 
@@ -42,6 +42,31 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 							options={this.arrayToMap(this.props.cvOptions)}
 							value={this.props.openCV}
 							onChange={(event) => this.props.selectCV(event.target.value)} />
+					</div>
+				</div>
+				<div className="card mb-3">
+					<div className="card-body">
+						<h3 className="card-title">New CV</h3>
+						<form onSubmit={(event) => this.onNewCVSubmit(event)}>
+							<div className="row">
+								<div className="col-8">
+									<ControlledInput
+										type="text"
+										className="form-control"
+										id="new-cv-input"
+										value={this.state.newCVName}
+										placeholder="CV name"
+										onChange={(event) => this.setState({ newCVName: event.target.value })} />
+								</div>
+								<div className="col-4">
+									<button
+										type="submit"
+										className="btn btn-success btn-block">
+											Create CV
+									</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 				{/* <div className="ControlPanel-Row row">
@@ -80,6 +105,12 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 				</div> */}
 			</div>
 		);
+	}
+
+	private onNewCVSubmit(event: React.FormEvent<HTMLFormElement>): void {
+		event.preventDefault();
+
+		this.props.createCV(this.state.newCVName);
 	}
 
 	private arrayToMap(arr: any[]): any {
