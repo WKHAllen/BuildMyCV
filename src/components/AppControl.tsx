@@ -1,15 +1,33 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/AppControl.css';
-import ControlledSelect from './ControlledSelect';
 
 export interface AppControlProps {
 	cvOptions: string[];
 	openCV: string;
 	resetExample: () => void;
+	newCV: (cvName: string) => void;
 }
 
-export default class AppControl extends React.Component<AppControlProps> {
+export interface AppControlState {
+	renameCVModalOpen: boolean;
+	deleteCVModalOpen: boolean;
+	newCVModalName: string;
+	renameCVModalName: string;
+}
+
+export default class AppControl extends React.Component<AppControlProps, AppControlState> {
+	constructor(props: AppControlProps) {
+		super(props);
+
+		this.state = {
+			renameCVModalOpen: false,
+			deleteCVModalOpen: false,
+			newCVModalName: '',
+			renameCVModalName: ''
+		};
+	}
+
 	render() {
 		return (
 			<div className="AppControl">
@@ -20,57 +38,18 @@ export default class AppControl extends React.Component<AppControlProps> {
 						className="btn btn-primary btn-lg btn-block"
 					>Export &rarr;</Link>
 				</div>
-				<div className="AppControl-Row row">
-					<div className="col-6">
-						<ControlledSelect
-							className="form-control"
-							id="cv-select"
-							options={this.arrayToMap(this.props.cvOptions)}
-							value={this.props.openCV} />
-					</div>
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-success btn-block">
-								New CV
-						</button>
-					</div>
-				</div>
-				<div className="AppControl-Row row">
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-warning btn-block">
-								Rename CV
-						</button>
-					</div>
-					<div className="col-6">
-						<button
-							type="button"
-							className="btn btn-danger btn-block">
-								Delete CV
-						</button>
-					</div>
-				</div>
-				<div className="row">
-					<div className="col-12">
-						<button
-							type="button"
-							className="btn btn-secondary btn-block"
-							onClick={() => this.props.resetExample()}>
-								Reset example
-						</button>
-					</div>
-				</div>
+				<Link
+					to="/control"
+					className="btn btn-success btn-block">
+						Control Panel
+				</Link>
+				<button
+					type="button"
+					className="btn btn-secondary btn-block"
+					onClick={() => this.props.resetExample()}>
+						Reset example
+				</button>
 			</div>
 		);
-	}
-
-	private arrayToMap(arr: any[]): any {
-		let arrayMap: any = {};
-		for (const value of arr) {
-			arrayMap[value] = value;
-		}
-		return arrayMap;
 	}
 }

@@ -6,6 +6,7 @@ import Editor from'./Editor';
 import CV, { CVProps } from './CV';
 import AppControl from './AppControl';
 import Export from './Export';
+import ControlPanel from './ControlPanel';
 
 export interface AppProps {
 	example: CVProps;
@@ -52,6 +53,8 @@ export default class App extends React.Component<AppProps, AppState> {
 
 		this.onUpdate = this.onUpdate.bind(this);
 		this.resetExample = this.resetExample.bind(this);
+		this.selectCV = this.selectCV.bind(this);
+		this.newCV = this.newCV.bind(this);
 	}
 
 	componentDidMount() {
@@ -78,7 +81,8 @@ export default class App extends React.Component<AppProps, AppState> {
 								<AppControl
 									cvOptions={this.state.cvOptions}
 									openCV={this.state.openCV}
-									resetExample={this.resetExample} />
+									resetExample={this.resetExample}
+									newCV={this.newCV} />
 								<Editor
 									cv={this.state.cvData}
 									onUpdate={this.onUpdate} />
@@ -88,6 +92,12 @@ export default class App extends React.Component<AppProps, AppState> {
 									{...this.state.cvData} />
 							</div>
 						</div>
+					</Route>
+					<Route exact path="/control">
+						<ControlPanel
+							cvOptions={this.state.cvOptions}
+							openCV={this.state.openCV}
+							selectCV={this.selectCV} />
 					</Route>
 					<Route exact path="/export">
 						<Export
@@ -142,6 +152,21 @@ export default class App extends React.Component<AppProps, AppState> {
 		cvedit.setCV('example', { cv: this.props.example });
 		this.setState({
 			openCV: 'example',
+			cvData: this.duplicate(this.props.example)
+		});
+	}
+
+	private selectCV(cvName: string): void {
+		this.setState({
+			openCV: cvName,
+			cvData: this.duplicate((cvedit.getCV(cvName) as cvedit.CVStructure).cv)
+		});
+	}
+
+	private newCV(cvName: string): void {
+		cvedit.setCV(cvName, { cv: this.props.example });
+		this.setState({
+			openCV: cvName,
 			cvData: this.duplicate(this.props.example)
 		});
 	}
