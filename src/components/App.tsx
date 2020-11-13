@@ -152,6 +152,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
 	private resetExample(): void {
 		cvedit.setCV('example', { cv: this.props.example });
+		cvedit.setOpen('example');
 		this.setState({
 			openCV: 'example',
 			cvData: this.duplicate(this.props.example)
@@ -159,6 +160,7 @@ export default class App extends React.Component<AppProps, AppState> {
 	}
 
 	private selectCV(cvName: string): void {
+		cvedit.setOpen(cvName);
 		this.setState({
 			openCV: cvName,
 			cvData: this.duplicate((cvedit.getCV(cvName) as cvedit.CVStructure).cv)
@@ -167,6 +169,7 @@ export default class App extends React.Component<AppProps, AppState> {
 
 	private createCV(cvName: string): void {
 		cvedit.setCV(cvName, { cv: this.props.example });
+		cvedit.setOpen(cvName);
 		const cvOptions = cvedit.getCVNames();
 		this.setState({
 			cvOptions: cvOptions,
