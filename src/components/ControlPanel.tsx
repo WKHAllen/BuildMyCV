@@ -186,7 +186,8 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 								<div className="col-4">
 									<button
 										type="submit"
-										className="btn btn-primary btn-block">
+										className="btn btn-primary btn-block"
+										onClick={() => this.copyToClipboard(JSON.stringify(this.props.getCVData(this.state.selectedJSONExportCV)))}>
 											Copy JSON
 									</button>
 								</div>
@@ -268,5 +269,15 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 			arrayMap[value] = value;
 		}
 		return arrayMap;
+	}
+
+	private copyToClipboard(text: string) {
+		const copyText = document.createElement('input');
+		copyText.value = text;
+		document.body.appendChild(copyText);
+		copyText.select();
+		copyText.setSelectionRange(0, 99999);
+		document.execCommand('copy');
+		document.body.removeChild(copyText);
 	}
 }
