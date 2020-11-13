@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import '../css/ControlPanel.css';
 import ControlledInput from './ControlledInput';
 import ControlledSelect from './ControlledSelect';
+import { CVStructure, assertCVStructure } from '../cvedit';
 
 export interface ControlPanelProps {
 	cvOptions: string[];
@@ -11,6 +12,7 @@ export interface ControlPanelProps {
 	createCV: (cvName: string) => void;
 	renameCV: (cvName: string, newCVName: string) => void;
 	deleteCV: (cvName: string) => void;
+	importCV: (cvName: string, cv: CVStructure) => void;
 }
 
 export interface ControlPanelState {
@@ -18,6 +20,10 @@ export interface ControlPanelState {
 	selectedRenameCV: string;
 	renamedCVName: string;
 	selectedDeleteCV: string;
+	importJSONName: string;
+	importJSONValue: string;
+	importJSONValueGood: boolean;
+	selectedJSONExportCV: string;
 }
 
 export default class ControlPanel extends React.Component<ControlPanelProps, ControlPanelState> {
@@ -28,7 +34,11 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 			newCVName: '',
 			selectedRenameCV: props.openCV,
 			renamedCVName: props.openCV,
-			selectedDeleteCV: props.openCV
+			selectedDeleteCV: props.openCV,
+			importJSONName: '',
+			importJSONValue: '',
+			importJSONValueGood: false,
+			selectedJSONExportCV: props.openCV
 		};
 	}
 
@@ -126,6 +136,39 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 						</form>
 					</div>
 				</div>
+				<div className="ControlPanel-Card card mb-3">
+					<div className="card-body">
+						<h3 className="card-title">Import JSON</h3>
+						<form onSubmit={(event) => this.onImportJSON(event)}>
+							<div className="row">
+								<div className="col-4">
+									<ControlledInput
+										className="form-control"
+										placeholder="CV name"
+										id="import-json-name"
+										value={this.state.importJSONName}
+										onChange={(event) => this.setState({ importJSONName: event.target.value })} />
+								</div>
+								<div className="col-4">
+									<ControlledInput
+										className="form-control"
+										placeholder="JSON"
+										id="import-json-input"
+										value={this.state.importJSONValue}
+										onChange={(event) => this.onImportJSONInputChange(event)} />
+								</div>
+								<div className="col-4">
+									<button
+										type="submit"
+										className="btn btn-success btn-block"
+										disabled={!this.state.importJSONValueGood}>
+											Import
+									</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -151,6 +194,31 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		event.preventDefault();
 
 		this.props.deleteCV(this.state.selectedDeleteCV);
+	}
+
+	private onImportJSONInputChange(event: React.ChangeEvent<HTMLInputElement>): void {
+		let cvData: CVStructure | null;
+		try {
+			cvData = (JSON.parse(event.target.value) as CVStructure);
+			if (!assertCVStructure(cvData)) {
+				cvData = null;
+			}
+		} catch (ex) {
+			cvData = null;
+		}
+
+		this.setState({
+			importJSONValue: event.target.value,
+			importJSONValueGood: cvData !== null
+		});
+	}
+
+	private onImportJSON(event: React.FormEvent<HTMLFormElement>): void {
+		event.preventDefault();
+
+		if (this.state.importJSONValueGood) {
+			this.props.importCV(this.state.importJSONName, (JSON.parse(this.state.importJSONValue) as CVStructure));
+		}
 	}
 
 	private arrayToMap(arr: any[]): any {
