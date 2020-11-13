@@ -27,3 +27,7 @@
 	padding-left: 8px;
 	padding-right: 16px;
 }
+
+.ControlPanel-ExportedJSON {
+	color: black;
+}

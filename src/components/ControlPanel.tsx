@@ -13,6 +13,7 @@ export interface ControlPanelProps {
 	renameCV: (cvName: string, newCVName: string) => void;
 	deleteCV: (cvName: string) => void;
 	importCV: (cvName: string, cv: CVStructure) => void;
+	getCVData: (cvName: string) => CVStructure | null;
 }
 
 export interface ControlPanelState {
@@ -169,6 +170,35 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 						</form>
 					</div>
 				</div>
+				<div className="ControlPanel-Card card">
+					<div className="card-body">
+						<h3 className="card-title">Export JSON</h3>
+						<form onSubmit={(event) => this.onImportJSON(event)}>
+							<div className="row mb-3">
+								<div className="col-8">
+									<ControlledSelect
+										className="form-control"
+										id="export-cv-select"
+										options={this.arrayToMap(this.props.cvOptions)}
+										value={this.state.selectedJSONExportCV}
+										onChange={(event) => this.setState({ selectedJSONExportCV: event.target.value })} />
+								</div>
+								<div className="col-4">
+									<button
+										type="submit"
+										className="btn btn-primary btn-block">
+											Copy JSON
+									</button>
+								</div>
+							</div>
+							<div className="card">
+								<div className="card-body">
+									<code className="ControlPanel-ExportedJSON">{JSON.stringify(this.props.getCVData(this.state.selectedJSONExportCV))}</code>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		);
 	}
@@ -194,6 +224,17 @@ export default class ControlPanel extends React.Component<ControlPanelProps, Con
 		event.preventDefault();
 
 		this.props.deleteCV(this.state.selectedDeleteCV);
+
+		if (this.state.selectedDeleteCV === this.state.selectedRenameCV) {
+			this.setState({
+				selectedRenameCV: 'example'
+			});
+		}
+		if (this.state.selectedDeleteCV === this.state.selectedJSONExportCV) {
+			this.setState({
+				selectedJSONExportCV: 'example'
+			});
+		}
 	}
 
 	private onImportJSONInputChange(event: React.ChangeEvent<HTMLInputElement>): void {

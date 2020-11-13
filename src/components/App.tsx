@@ -105,7 +105,8 @@ export default class App extends React.Component<AppProps, AppState> {
 							createCV={this.createCV}
 							renameCV={this.renameCV}
 							deleteCV={this.deleteCV}
-							importCV={this.importCV} />
+							importCV={this.importCV}
+							getCVData={cvedit.getCV} />
 					</Route>
 					<Route exact path="/export">
 						<Export
