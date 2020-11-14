@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Build My CV",
+  "name": "Build and export your Curriculum Vitae",
   "icons": [
     {
       "src": "favicon.ico",
